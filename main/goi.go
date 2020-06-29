@@ -3,6 +3,7 @@ package goi
 import (
 	"goi/canvas"
 	"goi/display"
+	"time"
 )
 
 // GOI interface for goi struct
@@ -19,12 +20,13 @@ type goi struct {
 
 func (g *goi) init(winTitle string) {
 	g.Canvas = canvas.NewCanvas()
-	g.Display = display.NewDisplay(winTitle)
-	g.Display.SetCanvas(&g.Canvas)
+	g.Display = display.NewDisplay(winTitle, &g.Canvas)
 }
 
 func (g *goi) Run() {
 	g.Display.Show()
+	defer g.Display.Destroy()
+	time.Sleep(time.Second * 2)
 }
 
 // NewGoiApp --> Creates a new goi struct

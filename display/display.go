@@ -10,8 +10,9 @@ import (
 // Display interface for display struct
 type Display interface {
 	init()
-	SetCanvas(*canvas.Canvas)
 	Show()
+	Hide()
+	Destroy()
 }
 
 // display struct
@@ -32,24 +33,32 @@ func (d *display) init() {
 	glfw.WindowHint(glfw.OpenGLForwardCompatible, glfw.True)
 
 	var err error
-	d.glfwWindow, err = glfw.CreateWindow(0, 0, d.title, nil, nil)
+	d.glfwWindow, err = glfw.CreateWindow(600.0, 600.0, d.title, nil, nil)
 	if err != nil {
 		log.Panic(err)
 	}
-}
-
-func (d *display) SetCanvas(canv *canvas.Canvas) {
-	d.canvas = canv
+	d.glfwWindow.MakeContextCurrent()
+	d.glfwWindow.Hide()
 }
 
 func (d *display) Show() {
-	defer glfw.Terminate()
+	d.glfwWindow.Show()
+}
+
+func (d *display) Hide() {
+	d.glfwWindow.Hide()
+}
+
+func (d *display) Destroy() {
+	d.glfwWindow.Destroy()
+	glfw.Terminate()
 }
 
 // NewDisplay --> Creates a new display struct
-func NewDisplay(title string) Display {
+func NewDisplay(title string, canv *canvas.Canvas) Display {
 	dis := display{
-		title: title,
+		title:  title,
+		canvas: canv,
 	}
 	dis.init()
 	return &dis
