@@ -5,6 +5,7 @@ import (
 	"goi/vector"
 	"log"
 
+	"github.com/go-gl/gl/v4.1-core/gl"
 	"github.com/go-gl/glfw/v3.2/glfw"
 )
 
@@ -47,8 +48,11 @@ func (d *display) Show() {
 		log.Panic(err)
 	}
 	d.glfwWindow.MakeContextCurrent()
+	(*d.canvas).Init()
 
 	for !d.glfwWindow.ShouldClose() {
+		(*d.canvas).ClearScreen()
+		gl.UseProgram((*d.canvas).GetGlProgram())
 		d._inLoop()
 		glfw.PollEvents()
 		d.glfwWindow.SwapBuffers()

@@ -25,7 +25,7 @@ func (g *goi) init(winTitle string, winSize vector.Vector2D) {
 
 func (g *goi) Run() {
 	g.Display.SetInLoop(func() {
-		// log.Println("a")
+		//
 	})
 	g.Display.SetOnExit(func() {
 		defer g.Display.Destroy()
