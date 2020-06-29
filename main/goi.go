@@ -10,6 +10,8 @@ import (
 type GOI interface {
 	init(string, vector.Vector2D)
 	Run()
+	GetCanvas() *canvas.Canvas
+	GetDisplay() *display.Display
 }
 
 // goi struct
@@ -31,6 +33,14 @@ func (g *goi) Run() {
 		defer g.Display.Destroy()
 	})
 	g.Display.Show()
+}
+
+func (g *goi) GetCanvas() *canvas.Canvas {
+	return &g.Canvas
+}
+
+func (g *goi) GetDisplay() *display.Display {
+	return &g.Display
 }
 
 // NewGoiApp --> Creates a new goi struct
