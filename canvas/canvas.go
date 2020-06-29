@@ -10,6 +10,7 @@ import (
 type Canvas interface {
 	Setup()
 	Draw()
+	ClearScreen()
 	GetGlProgram() uint32
 	OnSetup(func(Context))
 	OnDraw(func(Context))
@@ -33,6 +34,10 @@ func (c *canvas) Setup() {
 
 func (c *canvas) Draw() {
 	c._onDraw(newContext(c))
+}
+
+func (c *canvas) ClearScreen() {
+	gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 }
 
 func (c *canvas) GetGlProgram() uint32 {

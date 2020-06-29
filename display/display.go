@@ -51,6 +51,7 @@ func (d *display) Show() {
 	(*d.canvas).Setup()
 
 	for !d.glfwWindow.ShouldClose() {
+		(*d.canvas).ClearScreen()
 		(*d.canvas).Draw()
 		gl.UseProgram((*d.canvas).GetGlProgram())
 		d._inLoop()
