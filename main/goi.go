@@ -8,6 +8,7 @@ import (
 // GOI interface for goi struct
 type GOI interface {
 	init()
+	Run()
 }
 
 // goi struct
@@ -20,6 +21,10 @@ func (g *goi) init() {
 	g.Canvas = canvas.NewCanvas()
 	g.Display = display.NewDisplay()
 	g.Display.SetCanvas(&g.Canvas)
+}
+
+func (g *goi) Run() {
+	g.Display.Show()
 }
 
 // NewGoiApp --> Creates a new goi struct
