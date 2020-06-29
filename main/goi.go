@@ -3,11 +3,12 @@ package goi
 import (
 	"goi/canvas"
 	"goi/display"
+	"goi/vector"
 )
 
 // GOI interface for goi struct
 type GOI interface {
-	init(string)
+	init(string, vector.Vector2D)
 	Run()
 }
 
@@ -17,9 +18,9 @@ type goi struct {
 	Canvas  canvas.Canvas
 }
 
-func (g *goi) init(winTitle string) {
+func (g *goi) init(winTitle string, winSize vector.Vector2D) {
 	g.Canvas = canvas.NewCanvas()
-	g.Display = display.NewDisplay(winTitle, &g.Canvas)
+	g.Display = display.NewDisplay(winTitle, winSize, &g.Canvas)
 }
 
 func (g *goi) Run() {
@@ -33,11 +34,11 @@ func (g *goi) Run() {
 }
 
 // NewGoiApp --> Creates a new goi struct
-func NewGoiApp(title string) GOI {
+func NewGoiApp(title string, size vector.Vector2D) GOI {
 	app := goi{
 		Display: nil,
 		Canvas:  nil,
 	}
-	app.init(title)
+	app.init(title, size)
 	return &app
 }

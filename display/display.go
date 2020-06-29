@@ -2,6 +2,7 @@ package display
 
 import (
 	"goi/canvas"
+	"goi/vector"
 	"log"
 
 	"github.com/go-gl/glfw/v3.2/glfw"
@@ -15,12 +16,14 @@ type Display interface {
 	Destroy()
 	SetInLoop(func())
 	SetOnExit(func())
+	ChangeTitle(string)
 }
 
 // display struct
 type display struct {
 	canvas     *canvas.Canvas
 	title      string
+	size       vector.Vector2D
 	glfwWindow *glfw.Window
 	_inLoop    func()
 	_onExit    func()
@@ -39,7 +42,7 @@ func (d *display) init() {
 
 func (d *display) Show() {
 	var err error
-	d.glfwWindow, err = glfw.CreateWindow(600.0, 600.0, d.title, nil, nil)
+	d.glfwWindow, err = glfw.CreateWindow(int(d.size.GetX()), int(d.size.GetY()), d.title, nil, nil)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -74,10 +77,16 @@ func (d *display) SetOnExit(handler func()) {
 	d._onExit = handler
 }
 
+func (d *display) ChangeTitle(title string) {
+	d.title = title
+	d.glfwWindow.SetTitle(title)
+}
+
 // NewDisplay --> Creates a new display struct
-func NewDisplay(title string, canv *canvas.Canvas) Display {
+func NewDisplay(title string, size vector.Vector2D, canv *canvas.Canvas) Display {
 	dis := display{
 		title:   title,
+		size:    size,
 		canvas:  canv,
 		_inLoop: func() {},
 		_onExit: func() {},
