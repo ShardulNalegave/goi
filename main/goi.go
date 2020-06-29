@@ -7,7 +7,7 @@ import (
 
 // GOI interface for goi struct
 type GOI interface {
-	init()
+	init(string)
 	Run()
 }
 
@@ -17,9 +17,9 @@ type goi struct {
 	Canvas  canvas.Canvas
 }
 
-func (g *goi) init() {
+func (g *goi) init(winTitle string) {
 	g.Canvas = canvas.NewCanvas()
-	g.Display = display.NewDisplay()
+	g.Display = display.NewDisplay(winTitle)
 	g.Display.SetCanvas(&g.Canvas)
 }
 
@@ -28,9 +28,11 @@ func (g *goi) Run() {
 }
 
 // NewGoiApp --> Creates a new goi struct
-func NewGoiApp() GOI {
-	return &goi{
+func NewGoiApp(title string) GOI {
+	app := goi{
 		Display: nil,
 		Canvas:  nil,
 	}
+	app.init(title)
+	return &app
 }
