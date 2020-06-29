@@ -5,6 +5,7 @@ type Color interface {
 	GetR() float32
 	GetG() float32
 	GetB() float32
+	Normalize() [3]float32
 }
 
 // color struct
@@ -22,6 +23,14 @@ func (c *color) GetG() float32 {
 
 func (c *color) GetB() float32 {
 	return c.B
+}
+
+func (c *color) Normalize() [3]float32 {
+	return [3]float32{
+		c.R / 255,
+		c.G / 255,
+		c.B / 255,
+	}
 }
 
 // NewColor --> Creates a new color struct
