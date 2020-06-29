@@ -1,12 +1,27 @@
 package display
 
+import "goi/canvas"
+
 // Display interface for display struct
-type Display interface{}
+type Display interface {
+	init()
+	SetCanvas(*canvas.Canvas)
+}
 
 // display struct
-type display struct{}
+type display struct {
+	canvas *canvas.Canvas
+}
 
-// newDisplay --> Creates a new display struct
-func newDisplay() Display {
+func (d *display) init() {
+	//
+}
+
+func (d *display) SetCanvas(canv *canvas.Canvas) {
+	d.canvas = canv
+}
+
+// NewDisplay --> Creates a new display struct
+func NewDisplay() Display {
 	return &display{}
 }
