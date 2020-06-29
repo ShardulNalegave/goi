@@ -48,10 +48,10 @@ func (d *display) Show() {
 		log.Panic(err)
 	}
 	d.glfwWindow.MakeContextCurrent()
-	(*d.canvas).Init()
+	(*d.canvas).Setup()
 
 	for !d.glfwWindow.ShouldClose() {
-		(*d.canvas).ClearScreen()
+		(*d.canvas).Draw()
 		gl.UseProgram((*d.canvas).GetGlProgram())
 		d._inLoop()
 		glfw.PollEvents()

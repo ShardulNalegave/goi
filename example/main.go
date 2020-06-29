@@ -9,5 +9,7 @@ import (
 func main() {
 	runtime.LockOSThread()
 	app := goi.NewGoiApp("Test App", vector.NewVector2D(600, 600))
-	app.Run()
+
+	app.
+		app.Run()
 }

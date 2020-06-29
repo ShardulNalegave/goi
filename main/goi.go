@@ -2,7 +2,6 @@ package goi
 
 import (
 	"goi/canvas"
-	"goi/colors"
 	"goi/display"
 	"goi/vector"
 )
@@ -26,7 +25,7 @@ func (g *goi) init(winTitle string, winSize vector.Vector2D) {
 
 func (g *goi) Run() {
 	g.Display.SetInLoop(func() {
-		g.Canvas.BackgroundColor(colors.NewColor(50, 50, 50, 1))
+		//
 	})
 	g.Display.SetOnExit(func() {
 		defer g.Display.Destroy()
